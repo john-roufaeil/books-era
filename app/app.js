@@ -67,7 +67,8 @@ app.post('/login', (req, res) => { // Login
   var data = fs.readFileSync("users.json", 'utf-8'); // Whole file as string
   data = data.substring(1, data.length-1); // remove opening and closing brackets of string
   var dataObjs = data.split(',\n'); // list of strings
-
+  console.log(data);
+  console.log(dataObjs);
   for (var i in dataObjs) {
     var obj = JSON.parse(dataObjs[i]);
     if (username == obj.user && password == obj.pass) {
@@ -89,17 +90,22 @@ app.post('/register', (req, res) => { // Registration
   data = data.substring(1, data.length-1); // remove opening and closing brackets of string
   var dataObjs = data.split(',\n'); // list of strings
 
-  for (var i in dataObjs) {
-    var obj = JSON.parse(dataObjs[i]);
-    if (username == obj.user) {
-      console.log('This user already exists');
-      flag = true;
+  if (data.length > 0) {
+    for (var i in dataObjs) {
+      var obj = JSON.parse(dataObjs[i]);
+      if (username == obj.user) {
+        console.log('This user already exists');
+        flag = true;
+      }
     }
   }
   if (flag == false) {
     var newUser = {user: username, pass: password};
     var newUserString = JSON.stringify(newUser);
-    fs.writeFileSync("users.json", '[' + data + ',\n' + newUserString + ']');
+    if (data.length == 0) 
+      fs.writeFileSync("users.json", '[' + newUserString + ']');
+    else
+      fs.writeFileSync("users.json", '[' + data + ',\n' + newUserString + ']');
     res.render('login');
   }
 })
