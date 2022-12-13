@@ -59,10 +59,25 @@ app.get('/sun', function(req,res){
 });
 
 // POST requests
-app.post('/', (req, res) => { // Login
+app.post('/login', (req, res) => { // Login
   var username = req.body.username;
   var password = req.body.password;
-  res.send("POST Request Called")
+  var found = false;
+  // res.send("POST Request Called")
+  var data = fs.readFileSync("users.json", 'utf-8'); // Whole file as string
+  data = data.substring(1, data.length-1); // remove opening and closing brackets of string
+  var dataObjs = data.split(',\n'); // list of strings
+
+  for (var i in dataObjs) {
+    var obj = JSON.parse(dataObjs[i]);
+    if (username == obj.user && password == obj.pass) {
+      found = true;
+      res.render('home');
+    }
+  }
+  if (!found) {
+    console.log("The username or password you entered is incorrect");
+  }
 })
 
 app.post('/register', (req, res) => { // Registration
@@ -85,6 +100,7 @@ app.post('/register', (req, res) => { // Registration
     var newUser = {user: username, pass: password};
     var newUserString = JSON.stringify(newUser);
     fs.writeFileSync("users.json", '[' + data + ',\n' + newUserString + ']');
+    res.render('login');
   }
 })
 
