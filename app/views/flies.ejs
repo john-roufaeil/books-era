@@ -77,12 +77,17 @@
         At the dawn of the next world war, a plane crashes on an uncharted island, stranding a group of schoolboys. At first, with no adult supervision, their freedom is something to celebrate; this far from civilization the boys can do anything they want. Anything.
     </div>
     <div class="readlist">
-        <button id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button>
+        <form action="/add" method="post">
+            <button name="addButton"value="addToList" id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button>
+            <input style="visibility: hidden" type="text" id="book" name="bookname" value="flies"> <br>
+        </form>
+        <!-- <button id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button> -->
     </div>
     <div class="video">
-        <video width="480" height="360" controls>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/-tXpA3dIEtI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- <video width="480" height="360" controls>
             <source src="/flies.mp4">
-        </video>
+        </video> -->
     </div>
 </body>
 </html>

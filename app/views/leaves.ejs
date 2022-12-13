@@ -78,12 +78,17 @@
         A poetry collection by American poet Walt Whitman (1819–1892), each poem of which is loosely connected and represents the celebration of his philosophy of life and humanity.
     </div>
     <div class="readlist">
-        <button id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button>
+        <form action="/add" method="post">
+            <button name="addButton"value="addToList" id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button>
+            <input style="visibility: hidden" type="text" id="book" name="bookname" value="leaves"> <br>
+        </form>
+        <!-- <button id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button> -->
     </div>
     <div class="video">
-        <video width="480" height="360" controls>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/01AL3EClMgI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- <video width="480" height="360" controls>
             <source src="/leaves.mp4">
-        </video>
+        </video> -->
     </div>
 
 </body>

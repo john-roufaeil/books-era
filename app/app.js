@@ -1,6 +1,8 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
+var alert = require('alert');
+var find = require('find');
 var app = express();
 
 // view engine setup
@@ -58,28 +60,30 @@ app.get('/sun', function(req,res){
   res.render('sun')
 });
 
-// POST requests
+// POST requests____________________________________________________
 app.post('/login', (req, res) => { // Login
   var username = req.body.username;
   var password = req.body.password;
   var found = false;
-  // res.send("POST Request Called")
+
   var data = fs.readFileSync("users.json", 'utf-8'); // Whole file as string
   data = data.substring(1, data.length-1); // remove opening and closing brackets of string
   var dataObjs = data.split(',\n'); // list of strings
-  console.log(data);
-  console.log(dataObjs);
+
   for (var i in dataObjs) {
     var obj = JSON.parse(dataObjs[i]);
     if (username == obj.user && password == obj.pass) {
       found = true;
+      fs.writeFileSync("current_username.txt", username);
       res.render('home');
     }
   }
   if (!found) {
-    console.log("The username or password you entered is incorrect");
+    alert("The username or password you entered is incorrect");
   }
 })
+
+
 
 app.post('/register', (req, res) => { // Registration
   var username = req.body.username;
@@ -94,13 +98,13 @@ app.post('/register', (req, res) => { // Registration
     for (var i in dataObjs) {
       var obj = JSON.parse(dataObjs[i]);
       if (username == obj.user) {
-        console.log('This user already exists');
+        alert('This user already exists');
         flag = true;
       }
     }
   }
   if (flag == false) {
-    var newUser = {user: username, pass: password};
+    var newUser = {user: username, pass: password, list: []};
     var newUserString = JSON.stringify(newUser);
     if (data.length == 0) 
       fs.writeFileSync("users.json", '[' + newUserString + ']');
@@ -110,6 +114,39 @@ app.post('/register', (req, res) => { // Registration
   }
 })
 
+
+
+app.post('/add', (req, res) => { // Add Book to Read List
+  var username = fs.readFileSync("current_username.txt");
+  var bookname = req.body.bookname;
+
+  var data = fs.readFileSync("users.json", 'utf-8'); // Whole file as string
+  data = data.substring(1, data.length-1); // remove opening and closing brackets of string
+  var dataObjs = data.split(',\n'); // list of strings
+  
+  fs.writeFileSync("users.json", "[");
+  for (var i in dataObjs) {
+    var obj = JSON.parse(dataObjs[i]);
+    if (username == obj.user ) {
+      if (!obj.list.includes(bookname)){
+        obj.list.push(String(bookname));
+      }
+      else  {
+        alert("You have already added this book to your Want to Read List.")
+      }
+    }
+    if (i != dataObjs.length - 1)
+      fs.appendFileSync("users.json", JSON.stringify(obj) + ",\n");
+    else
+      fs.appendFileSync("users.json", JSON.stringify(obj) + "\n");
+  }
+  fs.appendFileSync("users.json", "]");
+})
+
+function unique(name) {
+  return name;
+}
+
   app.post('/search', (req, res) => { // Search
   res.send("POST Request Called")
 })
@@ -117,4 +154,4 @@ app.post('/register', (req, res) => { // Registration
 
 module.exports = app;
 
-app.listen(3001);
+app.listen(3002);

@@ -77,14 +77,19 @@
         Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the “spice” melange, a drug capable of extending life and enhancing consciousness. Coveted across the known universe, melange is a prize worth killing for.
     </div>
     <div class="readlist">
-        <button id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button>
+        <form action="/add" method="post">
+            <button name="addButton" value="addToList" id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button>
+            <input style="visibility: hidden" type="text" id="book" name="bookname" value="dune"> <br>
+        </form>
+        <!-- <button id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button> -->
     </div>
     <div class="video">
-        <video width="480" height="360" controls>
-            <source src="/dune.mp4">
-        </video>
+        <!-- <video width="480" height="360" controls> -->
+            <!-- <source src="/dune.mp4"> -->
+            <iframe width="480" height="360" src="https://www.youtube.com/embed/8g18jFHCLXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- </video> -->
     </div>
 
 </body>
 
-</html>
+</html> 
