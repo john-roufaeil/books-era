@@ -11,6 +11,7 @@
             color: white;
             text-align: center;
             -webkit-text-stroke: 1px black;
+            font-weight: bolder;
         }
         .cont {
             position:relative;
@@ -43,6 +44,14 @@
         </form>
         <br>
         <a href="registration">I dont have an account</a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="error">
+        <% if(locals.err) { %>
+            <div><p style="background-color: #C00; color: white; width: fit-content; margin: auto;">The username or password you entered is incorrect</p></div>
+        <% } %>
     </div>
 </body>
 </html>

@@ -4,6 +4,8 @@ var fs = require('fs');
 var alert = require('alert');
 const { render } = require('ejs');
 var app = express();
+const PORT = process.env.PORT || 3030;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -107,7 +109,8 @@ app.post('/login', (req, res) => { // Login
     }
   }
   if (!found) {
-    alert("The username or password you entered is incorrect");
+    var err = true;
+    return res.render('login', {err});
   }
 })
 
@@ -126,8 +129,9 @@ app.post('/register', (req, res) => { // Registration
     for (var i in dataObjs) {
       var obj = JSON.parse(dataObjs[i]);
       if (username == obj.user) {
-        alert('This user already exists');
         flag = true;
+        var err = true;
+        return res.render('register', {err});
       }
     }
   }
@@ -195,4 +199,7 @@ app.post('/add', (req, res) => { // Add Book to Read List
 
 module.exports = app;
 
-app.listen(3002);
+// app.listen(3003);
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
