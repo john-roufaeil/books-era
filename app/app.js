@@ -59,7 +59,6 @@ app.get('/readlist', function(req,res){
     }
   }
   for (var book in userList) {
-    console.log(book);
     if (userList[book] == 'dune') book1 = true;
     if (userList[book] == "flies") book2 = true;
     if (userList[book] == "grapes") book3 = true;
@@ -67,14 +66,7 @@ app.get('/readlist', function(req,res){
     if (userList[book] == "mockingbird") book5 = true;
     if (userList[book] == "sun") book6 = true;
   }
-  console.log(userList);
-  console.log(book1);
-  console.log(book2);
-  console.log(book3);
-  console.log(book4);
-  console.log(book5);
-  console.log(book6);
-  return res.render('readlist.ejs', {book1, book2, book3, book4, book5, book6});
+  return res.render('readlist', {book1, book2, book3, book4, book5, book6});
   // res.render('readlist', )
 });
 app.get('/dune', function(req,res){
@@ -179,13 +171,26 @@ app.post('/add', (req, res) => { // Add Book to Read List
   fs.appendFileSync("users.json", "]");
 })
 
-function unique(name) {
-  return name;
-}
+
 
   app.post('/search', (req, res) => { // Search
-  res.send("POST Request Called")
-})
+    var books = ["dune", "lord of the flies", "the grapes of wrath", "leaves of grass","to kill a mockingbird","the sun and her flowers"]
+    var show = [false, false, false, false, false, false]
+    var query = req.body.Search;
+    query = query.toLowerCase();
+
+    for (var i in books) {
+      if ((books[i]).includes(query))
+        show[i] = true;
+    }
+    var book1 = show[0];
+    var book2 = show[1];
+    var book3 = show[2];
+    var book4 = show[3];
+    var book5 = show[4];
+    var book6 = show[5];
+    return res.render('searchresults', {book1, book2, book3, book4, book5, book6});
+  })
 
 
 module.exports = app;

@@ -38,5 +38,22 @@
             </form>
         </div>
     </nav>
+    <div id="search_result">
+        <% if(locals.book1){ %>
+            <div><a style="text-decoration: none; color: white;" href="dune">Dune</a></div>
+        <% } %> <% if(locals.book2){ %>
+            <div><a style="text-decoration: none; color: white;" href="flies">Lord of the Flies</a></div>
+        <% } %> <% if(locals.book3){ %>
+            <div><a style="text-decoration: none; color: white;" href="grapes">The Grapes of Wrath</a></div>
+        <% } %> <% if(locals.book4){ %>
+            <div><a style="text-decoration: none; color: white;" href="leaves">Leaves of Grass</a></div>
+        <% } %> <% if(locals.book5){ %>    
+            <div><a style="text-decoration: none; color: white;" href="mockingbird">To Kill a Mockingbird</a></div>
+        <% } %> <% if(locals.book6){ %>
+            <div><a style="text-decoration: none; color: white;" href="sun">The Sun and Her Flowers</a></div>
+        <% } %> <% if(!locals.book1 && !locals.book2 && !locals.book3 && !locals.book4 && !locals.book5 && !locals.book6){ %>
+            <div><p>Book Not Found</p></div>
+        <% } %>
+    </div>
 </body>
 </html>
