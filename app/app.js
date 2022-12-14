@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var fs = require('fs');
 var alert = require('alert');
-var find = require('find');
+const { render } = require('ejs');
 var app = express();
 
 // view engine setup
@@ -39,7 +39,43 @@ app.get('/poetry', function(req,res){
   res.render('poetry')
 });
 app.get('/readlist', function(req,res){
-  res.render('readlist')
+  var username = fs.readFileSync("current_username.txt");
+  var userList = [];
+  var book1 = false;
+  var book2 = false;
+  var book3 = false;
+  var book4 = false;
+  var book5 = false;
+  var book6 = false;
+
+  var data = fs.readFileSync("users.json", 'utf-8'); // Whole file as string
+  data = data.substring(1, data.length-1); // remove opening and closing brackets of string
+  var dataObjs = data.split(',\n'); // list of strings
+  
+  for (var i in dataObjs) {
+    var obj = JSON.parse(dataObjs[i]);
+    if (username == obj.user) {
+      userList = obj.list;
+    }
+  }
+  for (var book in userList) {
+    console.log(book);
+    if (userList[book] == 'dune') book1 = true;
+    if (userList[book] == "flies") book2 = true;
+    if (userList[book] == "grapes") book3 = true;
+    if (userList[book] == "leaves") book4 = true;
+    if (userList[book] == "mockingbird") book5 = true;
+    if (userList[book] == "sun") book6 = true;
+  }
+  console.log(userList);
+  console.log(book1);
+  console.log(book2);
+  console.log(book3);
+  console.log(book4);
+  console.log(book5);
+  console.log(book6);
+  return res.render('readlist.ejs', {book1, book2, book3, book4, book5, book6});
+  // res.render('readlist', )
 });
 app.get('/dune', function(req,res){
   res.render('dune')
