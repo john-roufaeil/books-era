@@ -131,7 +131,7 @@ app.post('/register', (req, res) => { // Registration
       if (username == obj.user) {
         flag = true;
         var err = true;
-        return res.render('register', {err});
+        return res.render('registration', {err});
       }
     }
   }

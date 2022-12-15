@@ -105,11 +105,13 @@ app.post('/login', (req, res) => { // Login
     if (username == obj.user && password == obj.pass) {
       found = true;
       fs.writeFileSync("current_username.txt", username);
+      console.log(username + ' just logged in');
       res.render('home');
     }
   }
   if (!found) {
     var err = true;
+    console.log("failed login: " + username + " " + password);
     return res.render('login', {err});
   }
 })
@@ -131,7 +133,8 @@ app.post('/register', (req, res) => { // Registration
       if (username == obj.user) {
         flag = true;
         var err = true;
-        return res.render('registration', {err});
+        console.log(username + " cannot be registered");
+        return res.render('a', {err});
       }
     }
   }
@@ -143,6 +146,7 @@ app.post('/register', (req, res) => { // Registration
     else
       fs.writeFileSync("users.json", '[' + data + ',\n' + newUserString + ']');
     res.render('login');
+    console.log(username + " registered with password " + password)
   }
 })
 
@@ -162,6 +166,7 @@ app.post('/add', (req, res) => { // Add Book to Read List
     if (username == obj.user ) {
       if (!obj.list.includes(bookname)){
         obj.list.push(String(bookname));
+        console.log(username + " added " + bookname + " to their list");
       }
       else  {
         alert("You have already added this book to your Want to Read List.")
@@ -193,6 +198,7 @@ app.post('/add', (req, res) => { // Add Book to Read List
     var book4 = show[3];
     var book5 = show[4];
     var book6 = show[5];
+    console.log(username + " searched for " + query);
     return res.render('searchresults', {book1, book2, book3, book4, book5, book6});
   })
 
