@@ -186,6 +186,7 @@ app.post('/add', (req, res) => { // Add Book to Read List
     var books = ["dune", "lord of the flies", "the grapes of wrath", "leaves of grass","to kill a mockingbird","the sun and her flowers"]
     var show = [false, false, false, false, false, false]
     var query = req.body.Search;
+    var username = fs.readFileSync("current_username.txt");
     query = query.toLowerCase();
 
     for (var i in books) {
