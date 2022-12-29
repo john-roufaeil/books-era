@@ -4,4 +4,4 @@ This is a simple Networks project in which I had to learn on my own how to use N
 
 Please note that this project was part of a course in which they provided the user interface, i.e., I was only responsible for the back-end of this project.
 
-You can use a live version of the project [here](https://booksera.onrender.com)
+You can use a live version of the project  <a href="https://booksera.onrender.com/" target="_blank">here</a>
